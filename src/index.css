@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-padding-top: 2rem;
+  scroll-behavior: smooth;
+}
+
+/* Some Variable */
+:root {
+  --main-color: #1e30f3;
+  --text-color: #020307;
+  --bg-color: #fff;
+}
+
+/* Custom Scroll Bar */
+html::-webkit-scrollbar {
+  width: 0.5rem;
+  background: var(--text-color);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 5rem;
+}
