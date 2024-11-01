@@ -5,7 +5,7 @@ import Layout from "../../layouts";
 import UseTop from "../../hooks/UseTop";
 import handleError from "../../services/HandleError";
 import { ErrorResponse, User } from "../../type";
-import { getMediaFromCms } from "../../utils";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   UseTop();
@@ -14,13 +14,9 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const users = await userApi.getAll();
-        const findUser = users.data.docs.find(
-          (user: User) => user.apiKey === import.meta.env.VITE_CMS_API_KEY
-        );
-        console.log("🚀 ~ fetchData ~ findUser:", findUser);
+        const user = await userApi.getById(import.meta.env.VITE_USER_ID);
 
-        setUser(findUser);
+        setUser(user.data);
       } catch (error) {
         console.log("🚀 ~ fetchData ~ error:", error);
         handleError.showError(error as ErrorResponse);
@@ -40,30 +36,30 @@ const HomePage = () => {
                 <div className="text-center text-xxl-start">
                   <div className="badge bg-gradient-primary-to-secondary text-white mb-4">
                     <div className="text-uppercase">
-                      Design &middot; Development
+                      {user?.about?.title || "About Me"}
                     </div>
                   </div>
                   <div className="fs-3 fw-light text-muted">
-                    I can help your business to
+                    {user?.about?.content.split("\n")[0] || "I am a passionate developer"}
                   </div>
                   <h1 className="display-3 fw-bolder mb-5">
                     <span className="text-gradient d-inline">
-                      Unlocking Online Potential
+                      {user?.about?.content.split("\n")[1] || "I love to code"}
                     </span>
                   </h1>
                   <div className="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
-                    <a
+                    <Link
                       className="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder"
-                      href="resume.html"
+                      to="/resume"
                     >
                       Resume
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       className="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder"
-                      href="projects.html"
+                      to="/project"
                     >
                       Projects
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -72,7 +68,7 @@ const HomePage = () => {
                   <div className="profile bg-gradient-primary-to-secondary">
                     <img
                       className="profile-img"
-                      src={getMediaFromCms(user?.avatar?.url)}
+                      src={user?.avatar?.cloudinary?.secure_url || ""}
                       alt="..."
                     />
                     <div className="dots-1">
@@ -231,28 +227,19 @@ const HomePage = () => {
                     <span className="text-gradient d-inline">About Me</span>
                   </h2>
                   <p className="lead fw-light mb-4">
-                    My name is Quang and I help brands grow.
+                    My name is {user?.firstName}. I'm a {user?.about?.title}.
                   </p>
-                  <p className="text-muted">{user?.summary}</p>
+                  <p className="text-muted">{user?.about?.summary || ""}</p>
                   <div className="d-flex justify-content-center fs-2 gap-4">
-                    <a
-                      className="text-gradient"
-                      href="https://www.facebook.com/ndquang093"
-                    >
-                      <i className="bi bi-facebook"></i>
-                    </a>
-                    <a
-                      className="text-gradient"
-                      href="https://www.linkedin.com/in/nguyen-duy-quang/"
-                    >
-                      <i className="bi bi-linkedin"></i>
-                    </a>
-                    <a
-                      className="text-gradient"
-                      href="https://github.com/ndquang5802"
-                    >
-                      <i className="bi bi-github"></i>
-                    </a>
+                    {user?.socials && user?.socials.length > 0 && user?.socials.map((social) => (
+                      <a
+                        key={social.id}
+                        className="text-gradient"
+                        href={social.url}
+                      >
+                        <img src={social?.icon.cloudinary.secure_url || ""} alt={social?.icon.altText} className="img-fluid text-gradient" />
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>

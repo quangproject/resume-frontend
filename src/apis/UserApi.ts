@@ -12,5 +12,4 @@ class UserApi {
   }
 }
 
-const userApi = new UserApi();
-export default userApi;
+export default new UserApi();

@@ -14,10 +14,12 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "dotenv": "^16.4.5",
+    "escape-html": "^1.0.3",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0",
+    "slate": "^0.110.2",
     "sweetalert2": "^11.14.4"
   },
   "devDependencies": {
