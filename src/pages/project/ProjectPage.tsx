@@ -49,8 +49,8 @@ const ProjectPage = () => {
                   projects.map((project: Project) => (
                     <Card className="overflow-hidden shadow rounded-4 border-0 mb-4">
                       <Card.Body className="p-0">
-                        <div className="d-flex align-items-center flex-column flex-lg-row p-5">
-                          <div>
+                        <div className="d-flex justify-content-center align-items-center flex-column flex-lg-row p-5">
+                          <div className="col-12 col-lg-6">
                             <h2 className="fw-bolder">
                               {project?.projectName}
                             </h2>
@@ -62,14 +62,15 @@ const ProjectPage = () => {
                                   : "Present"}
                               </em>
                             </p>
-
                             <Serialize>{project?.description}</Serialize>
                           </div>
-                          <img
-                            className="img-fluid ps-0 ps-lg-5 pt-4 pt-lg-0"
-                            src={project?.image.cloudinary.secure_url}
-                            alt="Surgerate Project"
-                          />
+                          <div className="col-12 col-lg-6 text-center">
+                            <img
+                              className="img-fluid ps-0 ps-lg-5 pt-4 pt-lg-0"
+                              src={project?.image.cloudinary.secure_url}
+                              alt="Surgerate Project"
+                            />
+                          </div>
                         </div>
                       </Card.Body>
                     </Card>
