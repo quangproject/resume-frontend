@@ -7,6 +7,7 @@ import { ErrorResponse, Project } from "../../type";
 import Serialize from "../../components/Serialize";
 import { formatMonthYear } from "../../utils";
 import { Link } from "react-router-dom";
+import { Card, Placeholder } from "react-bootstrap";
 
 const ProjectPage = () => {
   UseTop();
@@ -25,7 +26,6 @@ const ProjectPage = () => {
 
         setProjects(userProjects);
       } catch (error) {
-        console.log("🚀 ~ fetchData ~ error:", error);
         handleError.showError(error as ErrorResponse);
       }
     };
@@ -36,7 +36,6 @@ const ProjectPage = () => {
   return (
     <Layout>
       <main>
-
         <section className="py-5">
           <div className="container px-5 mb-5">
             <div className="text-center mb-5">
@@ -46,27 +45,63 @@ const ProjectPage = () => {
             </div>
             <div className="row gx-5 justify-content-center">
               <div className="col-lg-11 col-xl-9 col-xxl-8">
-                {projects.length > 0 && projects.map((project: Project) => (
-                  <div className="card overflow-hidden shadow rounded-4 border-0 mb-5">
-                    <div className="card-body p-0">
-                      <div
-                        className="d-flex align-items-center flex-column flex-lg-row p-5"
-                      >
-                        <div>
-                          <h2 className="fw-bolder">{project?.projectName}</h2>
-                          <p><em>{formatMonthYear(project?.startDate)} - {project.endDate ? formatMonthYear(project.endDate) : "Present"}</em></p>
+                {projects.length > 0 ? (
+                  projects.map((project: Project) => (
+                    <Card className="overflow-hidden shadow rounded-4 border-0 mb-4">
+                      <Card.Body className="p-0">
+                        <div className="d-flex align-items-center flex-column flex-lg-row p-5">
+                          <div>
+                            <h2 className="fw-bolder">
+                              {project?.projectName}
+                            </h2>
+                            <p>
+                              <em>
+                                {formatMonthYear(project?.startDate)} -{" "}
+                                {project.endDate
+                                  ? formatMonthYear(project.endDate)
+                                  : "Present"}
+                              </em>
+                            </p>
 
-                          <Serialize>{project?.description}</Serialize>
+                            <Serialize>{project?.description}</Serialize>
+                          </div>
+                          <img
+                            className="img-fluid ps-0 ps-lg-5 pt-4 pt-lg-0"
+                            src={project?.image.cloudinary.secure_url}
+                            alt="Surgerate Project"
+                          />
                         </div>
-                        <img
-                          className="img-fluid ps-0 ps-lg-5 pt-4 pt-lg-0"
-                          src={project?.image.cloudinary.secure_url}
-                          alt="Surgerate Project"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                      </Card.Body>
+                    </Card>
+                  ))
+                ) : (
+                  <>
+                    {Array.from({ length: 2 }, () => (
+                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4">
+                        <Card.Body>
+                          <Placeholder as={Card.Title} animation="glow">
+                            <Placeholder xs={6} />
+                          </Placeholder>
+                          <Placeholder as={Card.Text} animation="glow">
+                            <Placeholder xs={7} /> <Placeholder xs={4} />{" "}
+                            <Placeholder xs={4} /> <Placeholder xs={6} />{" "}
+                            <Placeholder xs={8} />
+                          </Placeholder>
+                          <Placeholder as={Card.Text} animation="glow">
+                            <Placeholder xs={7} /> <Placeholder xs={4} />{" "}
+                            <Placeholder xs={4} /> <Placeholder xs={6} />{" "}
+                            <Placeholder xs={8} />
+                          </Placeholder>
+                          <Placeholder as={Card.Text} animation="glow">
+                            <Placeholder xs={7} /> <Placeholder xs={4} />{" "}
+                            <Placeholder xs={4} /> <Placeholder xs={6} />{" "}
+                            <Placeholder xs={8} />
+                          </Placeholder>
+                        </Card.Body>
+                      </Card>
+                    ))}
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -81,7 +116,9 @@ const ProjectPage = () => {
               <Link
                 className="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder"
                 to="/contact"
-              >Contact me</Link>
+              >
+                Contact me
+              </Link>
             </div>
           </div>
         </section>

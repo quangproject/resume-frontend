@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
@@ -17,9 +18,9 @@ const Footer = () => {
               Terms
             </a>
             <span className="mx-1">&middot;</span>
-            <a className="small" href="contact.html">
+            <Link className="small" to="/contact">
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       </div>

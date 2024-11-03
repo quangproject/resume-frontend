@@ -1,4 +1,4 @@
-import Swal, { SweetAlertIcon } from "sweetalert2";
+import Swal, { SweetAlertIcon, SweetAlertPosition } from "sweetalert2";
 
 class SwalService {
   confirmDialog(callback: () => void, message: string) {
@@ -66,6 +66,20 @@ class SwalService {
       title: title,
       text: message,
       icon: icon,
+    });
+  }
+
+  showCustomPosition(
+    title: string,
+    icon: SweetAlertIcon,
+    position: SweetAlertPosition
+  ) {
+    Swal.fire({
+      position: position,
+      icon: icon,
+      title: title,
+      showConfirmButton: false,
+      timer: 1500,
     });
   }
 }

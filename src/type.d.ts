@@ -154,3 +154,11 @@ export interface Project {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ContactForm {
+  person: string;
+  fullName: string;
+  email: string;
+  telephone: string;
+  message: string;
+}
