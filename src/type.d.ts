@@ -159,6 +159,6 @@ export interface ContactForm {
   person: string;
   fullName: string;
   email: string;
-  telephone: string;
+  subject: string;
   message: string;
 }

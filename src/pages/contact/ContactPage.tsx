@@ -17,7 +17,7 @@ const ContactPage = () => {
     person: "",
     fullName: "",
     email: "",
-    telephone: "",
+    subject: "",
     message: "",
   };
 
@@ -28,7 +28,7 @@ const ContactPage = () => {
       .string()
       .email("Invalid email address")
       .required("Email is required"),
-    telephone: yup.string().required("Phone number is required"),
+    subject: yup.string().required("Subject is required"),
     message: yup.string().required("Message is required"),
   });
 
@@ -119,18 +119,18 @@ const ContactPage = () => {
                         </FloatingLabel>
 
                         <FloatingLabel
-                          controlId="floatingPhone"
-                          label="Phone number"
+                          controlId="floatingSubject"
+                          label="Subject"
                           className="mb-3"
                         >
                           <Field
                             as={BootstrapForm.Control}
-                            name="telephone"
+                            name="subject"
                             type="text"
-                            isInvalid={!!errors.telephone && touched.telephone}
+                            isInvalid={!!errors.subject && touched.subject}
                           />
                           <ErrorMessage
-                            name="telephone"
+                            name="subject"
                             component="div"
                             className="invalid-feedback"
                           />
