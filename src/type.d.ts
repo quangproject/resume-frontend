@@ -141,3 +141,16 @@ export interface UserSkill {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Project {
+  id: string;
+  person: User;
+  projectName: string;
+  startDate: string;
+  endDate: string;
+  link: string;
+  description: Description[];
+  image: Media;
+  createdAt: string;
+  updatedAt: string;
+}

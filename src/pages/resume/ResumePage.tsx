@@ -32,7 +32,7 @@ const ResumePage = () => {
         const userWorkExperiences = workExperiences.data.docs.filter(
           (workExperience: WorkExperience) =>
             workExperience.person.id === import.meta.env.VITE_USER_ID
-        );
+        ).sort((a: WorkExperience, b: WorkExperience) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
         setWorkExperiences(userWorkExperiences);
 
         const userEducations = educations.data.docs.filter(
@@ -66,7 +66,7 @@ const ResumePage = () => {
           </div>
           <div className="row gx-5 justify-content-center">
             <div className="col-lg-11 col-xl-9 col-xxl-8">
-              <section>
+              <section className="mb-5">
                 <div className="d-flex align-items-center justify-content-between mb-4 gap-3 flex-column flex-md-row">
                   <h2 className="text-primary fw-bolder mb-0">Experience</h2>
 
@@ -81,7 +81,7 @@ const ResumePage = () => {
                 </div>
 
                 {workExperiences.length > 0 && workExperiences.map((workExperience: WorkExperience) => (
-                  <div className="card shadow border-0 rounded-4 mb-5" key={workExperience.id}>
+                  <div className="card shadow border-0 rounded-4 mb-4" key={workExperience.id}>
                     <div className="card-body p-3 p-md-5">
                       <div className="row align-items-center gx-5">
                         <div className="col text-center text-lg-start mb-4 mb-lg-0">
@@ -111,8 +111,8 @@ const ResumePage = () => {
                 ))}
               </section>
 
-              <section>
-                <h2 className="text-secondary fw-bolder mb-4">Education</h2>
+              <section className="mb-5">
+                <h2 className="text-secondary fw-bolder mb-3">Education</h2>
 
                 {educations.length > 0 && educations.map((education: Education) => (
                   <div className="card shadow border-0 rounded-4 mb-5" key={education.id}>
@@ -147,9 +147,9 @@ const ResumePage = () => {
                 ))}
               </section>
 
-              <div className="pb-5"></div>
-
               <section>
+                <h2 className="text-gradient fw-bolder mb-3">Skills</h2>
+
                 <div className="card shadow border-0 rounded-4 mb-5">
                   <div className="card-body p-5">
                     {skills.length > 0 && skills.map((userSkill: UserSkill) => (

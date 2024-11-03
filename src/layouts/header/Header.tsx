@@ -1,12 +1,33 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
+import { ErrorResponse, User } from "../../type";
+import { useEffect, useState } from "react";
+import UserApi from "../../apis/UserApi";
+import handleError from "../../services/HandleError";
 
 const Header = () => {
+  const [user, setUser] = useState<User | undefined>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await UserApi.getById(import.meta.env.VITE_USER_ID);
+
+        setUser(user.data);
+      } catch (error) {
+        console.log("🚀 ~ fetchData ~ error:", error);
+        handleError.showError(error as ErrorResponse);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <header className="navbar navbar-expand-lg navbar-light bg-white py-3">
       <div className="container px-5">
         <Link className="navbar-brand" to="/">
-          <span className="fw-bolder text-primary">Nguyen Duy Quang</span>
+          <span className="fw-bolder text-primary">{user?.firstName} {user?.lastName}</span>
         </Link>
         <button
           className="navbar-toggler"
