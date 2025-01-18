@@ -28,29 +28,17 @@ interface Cloudinary {
   resource_type: string;
 }
 
-interface Media {
+interface Media extends BaseFile {
   id: string;
-  altText: string;
-  cloudinary: Cloudinary;
-  filename: string;
-  mimeType: string;
-  filesize: number;
   width: number;
   height: number;
   focalX: number;
   focalY: number;
-  original_doc: {
-    filename: string;
-    url: string;
-  };
   sizes: {
     small: AvatarSize;
     medium: AvatarSize;
     large: AvatarSize;
   };
-  createdAt: string;
-  updatedAt: string;
-  url: string;
 }
 
 interface Social {
@@ -60,7 +48,19 @@ interface Social {
   icon: Media;
 }
 
-type File = Media;
+interface BaseFile {
+  altText: string;
+  cloudinary: Cloudinary;
+  filename: string;
+  mimeType: string;
+  filesize: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface File extends BaseFile {
+  id: string;
+}
 
 interface About {
   title: string;

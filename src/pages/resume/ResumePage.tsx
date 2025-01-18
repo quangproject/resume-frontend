@@ -10,7 +10,7 @@ import {
   UserSkill,
   WorkExperience,
 } from "../../type";
-import { formatMonthYear, getFileFromCms } from "../../utils";
+import { formatMonthYear } from "../../utils";
 import EducationApi from "../../apis/EducationApi";
 import Serialize from "../../components/Serialize";
 import SkillApi from "../../apis/SkillApi";
@@ -93,9 +93,7 @@ const ResumePage = () => {
 
                   <a
                     className="btn btn-primary px-4 py-3"
-                    href={getFileFromCms(
-                      user?.about?.curriculumVitae?.original_doc?.url
-                    )}
+                    href={user?.about?.curriculumVitae?.cloudinary?.secure_url ?? "#"}
                     target="_blank"
                   >
                     <div className="d-inline-block bi bi-download me-2"></div>
@@ -143,8 +141,8 @@ const ResumePage = () => {
                   ))
                 ) : (
                   <>
-                    {Array.from({ length: 2 }, () => (
-                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4">
+                    {Array.from({ length: 2 }, (_, index) => (
+                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4" key={index}>
                         <Card.Body>
                           <Placeholder as={Card.Title} animation="glow">
                             <Placeholder xs={6} />
@@ -207,8 +205,8 @@ const ResumePage = () => {
                   ))
                 ) : (
                   <>
-                    {Array.from({ length: 2 }, () => (
-                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4">
+                    {Array.from({ length: 2 }, (_, index) => (
+                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4" key={index}>
                         <Card.Body>
                           <Placeholder as={Card.Title} animation="glow">
                             <Placeholder xs={6} />

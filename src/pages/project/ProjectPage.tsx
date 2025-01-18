@@ -47,7 +47,7 @@ const ProjectPage = () => {
               <div className="col-lg-11 col-xl-9 col-xxl-8">
                 {projects.length > 0 ? (
                   projects.map((project: Project) => (
-                    <Card className="overflow-hidden shadow rounded-4 border-0 mb-4">
+                    <Card className="overflow-hidden shadow rounded-4 border-0 mb-4" key={project.id}>
                       <Card.Body className="p-0">
                         <div className="d-flex justify-content-center align-items-center flex-column flex-lg-row p-5">
                           <div className="col-12 col-lg-6">
@@ -77,8 +77,8 @@ const ProjectPage = () => {
                   ))
                 ) : (
                   <>
-                    {Array.from({ length: 2 }, () => (
-                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4">
+                    {Array.from({ length: 2 }, (_, index) => (
+                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4" key={index}>
                         <Card.Body>
                           <Placeholder as={Card.Title} animation="glow">
                             <Placeholder xs={6} />

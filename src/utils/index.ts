@@ -3,13 +3,13 @@ export function getMediaFromCms(mediaUrl: string | undefined) {
 }
 
 export function getFileFromCms(fileUrl: string | undefined) {
-  return fileUrl ? `${import.meta.env.VITE_CMS_URL}${fileUrl}` : "";
+  return fileUrl ? `${import.meta.env.VITE_CMS_URL}${fileUrl}` : "#";
 }
 
 export function formatMonthYear(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
     month: "2-digit",
-    year: "numeric",
+    year: "numeric"
   });
 }
 

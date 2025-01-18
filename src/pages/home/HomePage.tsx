@@ -6,6 +6,7 @@ import UseTop from "../../hooks/UseTop";
 import handleError from "../../services/HandleError";
 import { ErrorResponse, User } from "../../type";
 import { Link } from "react-router-dom";
+import { Placeholder } from "react-bootstrap";
 
 const HomePage = () => {
   UseTop();
@@ -34,33 +35,50 @@ const HomePage = () => {
             <div className="row gx-5 align-items-center">
               <div className="col-xxl-5">
                 <div className="text-center text-xxl-start">
-                  <div className="badge bg-gradient-primary-to-secondary text-white mb-4">
-                    <div className="text-uppercase">
-                      {user?.about?.title || "About Me"}
-                    </div>
-                  </div>
-                  <div className="fs-3 fw-light text-muted">
-                    {user?.about?.content.split("\n")[0] || "I am a passionate developer"}
-                  </div>
-                  <h1 className="display-3 fw-bolder mb-5">
-                    <span className="text-gradient d-inline">
-                      {user?.about?.content.split("\n")[1] || "I love to code"}
-                    </span>
-                  </h1>
-                  <div className="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
-                    <Link
-                      className="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder"
-                      to="/resume"
-                    >
-                      Resume
-                    </Link>
-                    <Link
-                      className="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder"
-                      to="/project"
-                    >
-                      Projects
-                    </Link>
-                  </div>
+                  {user ? (
+                    <>
+                      <div className="badge bg-gradient-primary-to-secondary text-white mb-4">
+                        <div className="text-uppercase">
+                          {user?.about?.title || "About Me"}
+                        </div>
+                      </div>
+                      <div className="fs-3 fw-light text-muted">
+                        {user?.about?.content.split("\n")[0] || "I am a passionate developer"}
+                      </div>
+                      <h1 className="display-3 fw-bolder mb-5">
+                        <span className="text-gradient d-inline">
+                          {user?.about?.content.split("\n")[1] || "I love to code"}
+                        </span>
+                      </h1>
+                      <div className="d-grid gap-2 gap-sm-1 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
+                        <Link
+                          className="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder"
+                          to="/resume"
+                        >
+                          Resume
+                        </Link>
+                        <Link
+                          className="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder"
+                          to="/project"
+                        >
+                          Projects
+                        </Link>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Placeholder as="h2" animation="glow">
+                        <Placeholder xs={4} />
+                      </Placeholder>
+                      <Placeholder as="p" animation="glow">
+                        <Placeholder xs={7} /> <Placeholder xs={4} />{" "}
+                        <Placeholder xs={4} /> <Placeholder xs={6} />{" "}
+                        <Placeholder xs={8} />
+                      </Placeholder>
+                      <Placeholder.Button variant="primary" xs={4} />{" "}
+                      <Placeholder.Button variant="dark" xs={4} />
+                    </>
+                  )}
                 </div>
               </div>
               <div className="col-xxl-7">
@@ -69,7 +87,7 @@ const HomePage = () => {
                     <img
                       className="profile-img"
                       src={user?.avatar?.cloudinary?.secure_url || ""}
-                      alt="..."
+                      alt={user?.avatar?.filename}
                     />
                     <div className="dots-1">
                       <svg
@@ -226,21 +244,36 @@ const HomePage = () => {
                   <h2 className="display-5 fw-bolder">
                     <span className="text-gradient d-inline">About Me</span>
                   </h2>
-                  <p className="lead fw-light mb-4">
-                    My name is {user?.firstName}. I'm a {user?.about?.title}.
-                  </p>
-                  <p className="text-muted">{user?.about?.summary || ""}</p>
-                  <div className="d-flex justify-content-center fs-2 gap-4">
-                    {user?.socials && user?.socials.length > 0 && user?.socials.map((social) => (
-                      <a
-                        key={social.id}
-                        className="text-gradient"
-                        href={social.url}
-                      >
-                        <img src={social?.icon.cloudinary.secure_url || ""} alt={social?.icon.altText} className="img-fluid text-gradient" />
-                      </a>
-                    ))}
-                  </div>
+                  {user ? (
+                    <>
+                      <p className="lead fw-light mb-4">
+                        My name is {user?.firstName}. I'm a {user?.about?.title}.
+                      </p>
+                      <p className="text-muted">{user?.about?.summary || ""}</p>
+                      <div className="d-flex justify-content-center fs-2 gap-4">
+                        {user?.socials && user?.socials.length > 0 && user?.socials.map((social) => (
+                          <a
+                            key={social.id}
+                            className="text-gradient"
+                            href={social.url}
+                          >
+                            <img src={social?.icon.cloudinary.secure_url || ""} alt={social?.icon.altText} className="img-fluid text-gradient" />
+                          </a>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Placeholder as="h4" animation="glow">
+                        <Placeholder xs={6} />
+                      </Placeholder>
+                      <Placeholder as="p" animation="glow">
+                        <Placeholder xs={7} /> <Placeholder xs={4} />{" "}
+                        <Placeholder xs={4} /> <Placeholder xs={6} />{" "}
+                        <Placeholder xs={8} />
+                      </Placeholder>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
