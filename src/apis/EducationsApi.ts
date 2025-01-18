@@ -1,7 +1,7 @@
 import axiosClient from "./axiosClient";
 
-class ProjectApi {
-  private readonly API_URL = "/api/projects";
+class EducationApi {
+  private readonly API_URL = "/api/educations";
 
   getAll() {
     const url = this.API_URL;
@@ -14,4 +14,4 @@ class ProjectApi {
   }
 }
 
-export default new ProjectApi();
+export default new EducationApi();

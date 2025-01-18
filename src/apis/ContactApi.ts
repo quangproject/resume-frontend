@@ -2,13 +2,15 @@ import { ContactForm } from "../type";
 import axiosClient from "./axiosClient";
 
 class ContactApi {
+  private readonly API_URL = "/api/contacts";
+
   getAll() {
-    const url = "/api/contacts";
+    const url = this.API_URL;
     return axiosClient.get(url);
   }
 
   save(data: ContactForm) {
-    const url = `/api/contacts`;
+    const url = this.API_URL;
     return axiosClient.post(url, data);
   }
 }

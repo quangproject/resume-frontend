@@ -1,31 +1,15 @@
-import { useEffect, useState } from "react";
 import "./HomePage.css";
-import userApi from "../../apis/UserApi";
 import Layout from "../../layouts";
 import UseTop from "../../hooks/UseTop";
-import handleError from "../../services/HandleError";
-import { ErrorResponse, User } from "../../type";
+import { Social } from "../../type";
 import { Link } from "react-router-dom";
 import { Placeholder } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const HomePage = () => {
   UseTop();
-  const [user, setUser] = useState<User | undefined>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const user = await userApi.getById(import.meta.env.VITE_USER_ID);
-
-        setUser(user.data);
-      } catch (error) {
-        console.log("🚀 ~ fetchData ~ error:", error);
-        handleError.showError(error as ErrorResponse);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const user = useSelector((state: RootState) => state.user);
 
   return (
     <Layout>
@@ -37,17 +21,12 @@ const HomePage = () => {
                 <div className="text-center text-xxl-start">
                   {user ? (
                     <>
-                      <div className="badge bg-gradient-primary-to-secondary text-white mb-4">
-                        <div className="text-uppercase">
-                          {user?.about?.title || "About Me"}
-                        </div>
-                      </div>
                       <div className="fs-3 fw-light text-muted">
-                        {user?.about?.content.split("\n")[0] || "I am a passionate developer"}
+                        {user.about.content.split("\n")[0]}
                       </div>
                       <h1 className="display-3 fw-bolder mb-5">
                         <span className="text-gradient d-inline">
-                          {user?.about?.content.split("\n")[1] || "I love to code"}
+                          {user.about.content.split("\n")[1]}
                         </span>
                       </h1>
                       <div className="d-grid gap-2 gap-sm-1 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
@@ -67,7 +46,7 @@ const HomePage = () => {
                     </>
                   ) : (
                     <>
-                      <Placeholder as="h2" animation="glow">
+                      <Placeholder as="h4" animation="glow">
                         <Placeholder xs={4} />
                       </Placeholder>
                       <Placeholder as="p" animation="glow">
@@ -84,11 +63,13 @@ const HomePage = () => {
               <div className="col-xxl-7">
                 <div className="d-flex justify-content-center mt-5 mt-xxl-0">
                   <div className="profile bg-gradient-primary-to-secondary">
-                    <img
-                      className="profile-img"
-                      src={user?.avatar?.cloudinary?.secure_url || ""}
-                      alt={user?.avatar?.filename}
-                    />
+                    {user && (
+                      <img
+                        className="profile-img"
+                        src={user.avatar.cloudinary.secure_url}
+                        alt={user.avatar.filename}
+                      />
+                    )}
                     <div className="dots-1">
                       <svg
                         version="1.1"
@@ -247,17 +228,17 @@ const HomePage = () => {
                   {user ? (
                     <>
                       <p className="lead fw-light mb-4">
-                        My name is {user?.firstName}. I'm a {user?.about?.title}.
+                        My name is {user.firstName}. I'm a {user.about.title}.
                       </p>
-                      <p className="text-muted">{user?.about?.summary || ""}</p>
+                      <p className="text-muted">{user.about.summary}</p>
                       <div className="d-flex justify-content-center fs-2 gap-4">
-                        {user?.socials && user?.socials.length > 0 && user?.socials.map((social) => (
+                        {user.socials && user.socials.length > 0 && user.socials.map((social: Social) => (
                           <a
                             key={social.id}
                             className="text-gradient"
                             href={social.url}
                           >
-                            <img src={social?.icon.cloudinary.secure_url || ""} alt={social?.icon.altText} className="img-fluid text-gradient" />
+                            <img src={social.icon.cloudinary.secure_url || ""} alt={social.icon.altText} className="img-fluid text-gradient" />
                           </a>
                         ))}
                       </div>

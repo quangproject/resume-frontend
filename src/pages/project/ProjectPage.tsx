@@ -1,37 +1,16 @@
-import { useEffect, useState } from "react";
 import UseTop from "../../hooks/UseTop";
 import Layout from "../../layouts";
-import ProjectsApi from "../../apis/ProjectsApi";
-import handleError from "../../services/HandleError";
-import { ErrorResponse, Project } from "../../type";
+import { Project } from "../../type";
 import Serialize from "../../components/Serialize";
 import { formatMonthYear } from "../../utils";
 import { Link } from "react-router-dom";
 import { Card, Placeholder } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const ProjectPage = () => {
   UseTop();
-
-  const [projects, setProjects] = useState<Project[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const projects = await ProjectsApi.getAll();
-
-        const userProjects = projects.data.docs.filter(
-          (project: Project) =>
-            project.person.id === import.meta.env.VITE_USER_ID
-        );
-
-        setProjects(userProjects);
-      } catch (error) {
-        handleError.showError(error as ErrorResponse);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const projects = useSelector((state: RootState) => state.projects);
 
   return (
     <Layout>

@@ -1,80 +1,23 @@
-import { useEffect, useState } from "react";
 import UseTop from "../../hooks/UseTop";
 import Layout from "../../layouts";
-import WorkExperienceApi from "../../apis/WorkExperienceApi";
-import handleError from "../../services/HandleError";
 import {
   Education,
-  ErrorResponse,
-  User,
   UserSkill,
   WorkExperience,
 } from "../../type";
 import { formatMonthYear } from "../../utils";
-import EducationApi from "../../apis/EducationApi";
 import Serialize from "../../components/Serialize";
-import SkillApi from "../../apis/SkillApi";
-import UserApi from "../../apis/UserApi";
 import { Card, Placeholder } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const ResumePage = () => {
   UseTop();
-  const [user, setUser] = useState<User | undefined>();
-  const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([]);
-  const [educations, setEducations] = useState<Education[]>([]);
-  const [skills, setSkills] = useState<UserSkill[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [user, workExperiences, educations, skills] = await Promise.all([
-          UserApi.getById(import.meta.env.VITE_USER_ID),
-          WorkExperienceApi.getAll(),
-          EducationApi.getAll(),
-          SkillApi.getAll(),
-        ]);
-
-        setUser(user.data);
-
-        const userWorkExperiences = workExperiences.data.docs
-          .filter(
-            (workExperience: WorkExperience) =>
-              workExperience.person.id === import.meta.env.VITE_USER_ID
-          )
-          .sort(
-            (a: WorkExperience, b: WorkExperience) =>
-              new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-          );
-        setWorkExperiences(userWorkExperiences);
-
-        const userEducations = educations.data.docs
-          .filter(
-            (education: Education) =>
-              education.person.id === import.meta.env.VITE_USER_ID
-          )
-          .sort(
-            (a: Education, b: Education) =>
-              new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-          );
-        setEducations(userEducations);
-
-        const userSkills = skills.data.docs.filter(
-          (skill: UserSkill) => skill.person.id === import.meta.env.VITE_USER_ID
-        );
-        setSkills(
-          userSkills.sort(
-            (a: UserSkill, b: UserSkill) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          )
-        );
-      } catch (error) {
-        console.log("🚀 ~ fetchData ~ error:", error);
-        handleError.showError(error as ErrorResponse);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const user = useSelector((state: RootState) => state.user);
+  const workExperiences = useSelector((state: RootState) => state.workExperiences);
+  const educations = useSelector((state: RootState) => state.educations);
+  const skills = useSelector((state: RootState) => state.skills);
 
   return (
     <Layout>

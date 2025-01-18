@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 import { Container, Navbar, Offcanvas } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const Header = () => {
+  const user = useSelector((state: RootState) => state.user);
+
   return (
     <header className="bg-white">
       <Navbar expand="lg" className="bg-body-tertiary mb-3">
         <Container>
           <Link className="navbar-brand" to="/">
-            <span className="fw-bolder text-primary">Resume</span>
+            <span className="badge fw-bolder bg-gradient-primary-to-secondary">{user ? user.about.title : "Resume"}</span>
           </Link>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
           <Navbar.Offcanvas
@@ -18,7 +22,7 @@ const Header = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
-                Resume
+                {user?.about?.title || "Resume"}
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>

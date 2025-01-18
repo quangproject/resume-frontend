@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_CMS_URL,
+  baseURL: import.meta.env.VITE_CMS_URL
 });
 
 // Interceptors
@@ -10,12 +10,6 @@ axiosClient.interceptors.request.use(
   function (config) {
     if (config.data instanceof FormData) {
       config.headers["Content-Type"] = "multipart/form-data";
-    } else if (
-      config.url?.includes("download") ||
-      config.url?.includes("download-multiple") ||
-      config.url?.includes("read")
-    ) {
-      config.responseType = "blob";
     } else {
       config.headers["Content-Type"] = "application/json";
     }
@@ -27,7 +21,6 @@ axiosClient.interceptors.request.use(
     return config;
   },
   function (error) {
-    // Do something with request error
     return Promise.reject(error);
   }
 );
