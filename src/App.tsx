@@ -35,27 +35,27 @@ function App() {
 
         dispatch(setUser(user.data));
 
-        const userWorkExperiences = workExperiences.data.docs
+        const userWorkExperiences = workExperiences.data
           .sort(
             (a: WorkExperience, b: WorkExperience) =>
               new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
           );
         dispatch(setWorkExperiences(userWorkExperiences));
 
-        const userEducations = educations.data.docs
+        const userEducations = educations.data
           .sort(
             (a: Education, b: Education) =>
               new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
           );
         dispatch(setEducations(userEducations));
 
-        const userSkills = skills.data.docs.sort(
+        const userSkills = skills.data.sort(
           (a: UserSkill, b: UserSkill) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
         dispatch(setSkills(userSkills));
 
-        const userProjects = projects.data.docs;
+        const userProjects = projects.data;
         dispatch(setProjects(userProjects));
       } catch (error) {
         handleError.showError(error as ErrorResponse);

@@ -156,7 +156,6 @@ export interface Project {
 }
 
 export interface ContactForm {
-  person: string;
   fullName: string;
   email: string;
   subject: string;

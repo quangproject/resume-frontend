@@ -28,7 +28,7 @@ axiosClient.interceptors.request.use(
 // Add a response interceptor
 axiosClient.interceptors.response.use(
   function (response) {
-    return response;
+    return response.data;
   },
   function (error) {
     return Promise.reject(error);

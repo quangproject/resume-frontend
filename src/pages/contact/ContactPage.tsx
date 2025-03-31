@@ -14,7 +14,6 @@ const ContactPage = () => {
   UseTop();
   const [isLoading, setIsLoading] = useState(false);
   const initialValues: ContactForm = {
-    person: "",
     fullName: "",
     email: "",
     subject: "",
@@ -38,10 +37,7 @@ const ContactPage = () => {
   ) => {
     setIsLoading(true);
     try {
-      values.person = import.meta.env.VITE_USER_ID;
-
-      const response = await ContactApi.save(values);
-      console.log("🚀 ~ ContactPage ~ response:", response);
+      await ContactApi.save(values);
 
       swalService.showCustomPosition(
         "Send contact successfully",
