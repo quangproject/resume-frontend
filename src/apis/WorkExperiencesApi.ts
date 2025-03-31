@@ -1,15 +1,10 @@
 import axiosClient from "./axiosClient";
 
 class WorkExperienceApi {
-  private readonly API_URL = "/api/work-experiences";
+  private readonly API_URL = "/api/backend/work-experiences";
 
-  getAll() {
-    const url = this.API_URL;
-    return axiosClient.get(url);
-  }
-
-  getByUserId(userId: string) {
-    const url = `${this.API_URL}/${userId}/user`;
+  getByUserId() {
+    const url = `${this.API_URL}`;
     return axiosClient.get(url);
   }
 }

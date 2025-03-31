@@ -1,15 +1,10 @@
 import axiosClient from "./axiosClient";
 
 class UserApi {
-  private readonly API_URL = "/api/users";
+  private readonly API_URL = "/api/backend/users";
 
-  getAll() {
-    const url = this.API_URL;
-    return axiosClient.get(url);
-  }
-
-  getById(id: string) {
-    const url = `${this.API_URL}/${id}`;
+  getUserInfo() {
+    const url = `${this.API_URL}`;
     return axiosClient.get(url);
   }
 }

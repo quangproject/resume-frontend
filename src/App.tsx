@@ -26,11 +26,11 @@ function App() {
     const fetchAllData = async () => {
       try {
         const [user, workExperiences, educations, skills, projects] = await Promise.all([
-          UserApi.getById(import.meta.env.VITE_USER_ID),
-          WorkExperiencesApi.getByUserId(import.meta.env.VITE_USER_ID),
-          EducationsApi.getByUserId(import.meta.env.VITE_USER_ID),
-          SkillsApi.getByUserId(import.meta.env.VITE_USER_ID),
-          ProjectsApi.getByUserId(import.meta.env.VITE_USER_ID),
+          UserApi.getUserInfo(),
+          WorkExperiencesApi.getByUserId(),
+          EducationsApi.getByUserId(),
+          SkillsApi.getByUserId(),
+          ProjectsApi.getByUserId(),
         ]);
 
         dispatch(setUser(user.data));

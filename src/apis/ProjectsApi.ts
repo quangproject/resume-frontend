@@ -1,17 +1,12 @@
 import axiosClient from "./axiosClient";
 
-class ProjectApi {
-  private readonly API_URL = "/api/projects";
+class ProjectsApi {
+  private readonly API_URL = "/api/backend/projects";
 
-  getAll() {
-    const url = this.API_URL;
-    return axiosClient.get(url);
-  }
-
-  getByUserId(userId: string) {
-    const url = `${this.API_URL}/${userId}/user`;
+  getByUserId() {
+    const url = `${this.API_URL}`;
     return axiosClient.get(url);
   }
 }
 
-export default new ProjectApi();
+export default new ProjectsApi();

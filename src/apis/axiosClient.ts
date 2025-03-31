@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_CMS_URL
+  baseURL: import.meta.env.VITE_GATEWAY_URL,
+  auth: {
+    username: import.meta.env.VITE_BASIC_AUTH_USERNAME,
+    password: import.meta.env.VITE_BASIC_AUTH_PASSWORD
+  }
 });
 
 // Interceptors
@@ -13,10 +17,6 @@ axiosClient.interceptors.request.use(
     } else {
       config.headers["Content-Type"] = "application/json";
     }
-
-    config.headers["Authorization"] = `users API-Key ${
-      import.meta.env.VITE_CMS_API_KEY
-    }`;
 
     return config;
   },

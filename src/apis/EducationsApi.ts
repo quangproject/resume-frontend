@@ -1,17 +1,12 @@
 import axiosClient from "./axiosClient";
 
-class EducationApi {
-  private readonly API_URL = "/api/educations";
+class EducationsApi {
+  private readonly API_URL = "/api/backend/educations";
 
-  getAll() {
-    const url = this.API_URL;
-    return axiosClient.get(url);
-  }
-
-  getByUserId(userId: string) {
-    const url = `${this.API_URL}/${userId}/user`;
+  getByUserId() {
+    const url = `${this.API_URL}`;
     return axiosClient.get(url);
   }
 }
 
-export default new EducationApi();
+export default new EducationsApi();
