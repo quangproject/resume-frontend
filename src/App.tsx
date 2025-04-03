@@ -1,5 +1,5 @@
 import "./App.css";
-import { useRoutes } from "react-router-dom";
+import { useLocation, useRoutes } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
 import ResumePage from "./pages/resume/ResumePage";
 import ProjectPage from "./pages/project/ProjectPage";
@@ -18,8 +18,10 @@ import { useEffect } from "react";
 import ProjectsApi from "./apis/ProjectsApi";
 import { setProjects } from "./actions/projectsActions";
 import handleError from "./services/HandleError";
+import { initGA, trackPageView } from "./utils/analytics";
 
 function App() {
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,8 +64,10 @@ function App() {
       }
     };
 
+    initGA();
+    trackPageView(location.pathname);
     fetchAllData();
-  }, [dispatch]);
+  }, [location, dispatch]);
 
   const router = useRoutes([
     {
