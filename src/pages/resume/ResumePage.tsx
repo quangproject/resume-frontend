@@ -7,7 +7,7 @@ import {
 } from "../../type";
 import { formatMonthYear } from "../../utils";
 import Serialize from "../../components/Serialize";
-import { Card, Placeholder } from "react-bootstrap";
+import { Card, Image, Placeholder } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
@@ -22,8 +22,8 @@ const ResumePage = () => {
   return (
     <Layout>
       <main>
-        <div className="container px-5 my-5">
-          <div className="text-center mb-5">
+        <div className="container my-3 my-md-5">
+          <div className="text-center mb-3 mb-md-5">
             <h1 className="display-5 fw-bolder mb-0">
               <span className="text-gradient d-inline">Resume</span>
             </h1>
@@ -47,7 +47,7 @@ const ResumePage = () => {
                 {workExperiences.length > 0 ? (
                   workExperiences.map((workExperience: WorkExperience) => (
                     <Card
-                      className="shadow border-0 rounded-4 mb-4"
+                      className="shadow border-0 rounded-4 mb-3 mb-md-4"
                       key={workExperience.id}
                     >
                       <Card.Body className="p-3 p-md-5">
@@ -85,7 +85,7 @@ const ResumePage = () => {
                 ) : (
                   <>
                     {Array.from({ length: 2 }, (_, index) => (
-                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4" key={index}>
+                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-3 mb-md-4" key={index}>
                         <Card.Body>
                           <Placeholder as={Card.Title} animation="glow">
                             <Placeholder xs={6} />
@@ -107,11 +107,11 @@ const ResumePage = () => {
 
                 {educations.length > 0 ? (
                   educations.map((education: Education) => (
-                    <div
-                      className="card shadow border-0 rounded-4 mb-5"
+                    <Card
+                      className="shadow border-0 rounded-4 mb-3 mb-md-4"
                       key={education.id}
                     >
-                      <div className="card-body p-3 p-md-5">
+                      <Card.Body className="p-3 p-md-5">
                         <div className="row align-items-center gx-5">
                           <div className="col text-center text-lg-start mb-4 mb-lg-0">
                             <div className="bg-light p-4 rounded-4">
@@ -139,17 +139,19 @@ const ResumePage = () => {
                           </div>
                           <div className="col-lg-8">
                             <div>
-                              <Serialize>{education?.description}</Serialize>
+                              <Serialize>
+                                {education?.description}
+                              </Serialize>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      </Card.Body>
+                    </Card>
                   ))
                 ) : (
                   <>
                     {Array.from({ length: 2 }, (_, index) => (
-                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-4" key={index}>
+                      <Card className="overflow-hidden shadow rounded-4 border-0 mb-3 mb-md-4" key={index}>
                         <Card.Body>
                           <Placeholder as={Card.Title} animation="glow">
                             <Placeholder xs={6} />
@@ -169,11 +171,11 @@ const ResumePage = () => {
               <section>
                 <h2 className="text-secondary fw-bolder mb-3">Skills</h2>
 
-                <Card className="shadow border-0 rounded-4 mb-5">
-                  <Card.Body className="card-body p-5">
+                <Card className="shadow border-0 rounded-4 mb-3 mb-md-4">
+                  <Card.Body className="p-3 p-md-5">
                     {skills.length > 0 ? (
                       skills.map((userSkill: UserSkill) => (
-                        <div className="mb-5" key={userSkill.id}>
+                        <div className="mb-3 mb-md-5" key={userSkill.id}>
                           <div className="d-flex align-items-center mb-4">
                             <div className="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 me-3">
                               <img
@@ -193,8 +195,12 @@ const ResumePage = () => {
                           </div>
                           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-4">
                             {userSkill.skills.map((skill) => (
-                              <div className="col mb-4" key={skill.id}>
-                                <div className="d-flex align-items-center bg-light rounded-4 p-3 h-100">
+                              <div className="col mb-3 mb-md-4" key={skill.id}>
+                                <div className="d-flex align-items-center gap-2 bg-light rounded-4 p-3 h-100">
+                                  {skill?.icon && (
+                                    <Image src={skill.icon.cloudinary
+                                      .secure_url || ""} rounded width={30} height={30} />
+                                  )}
                                   {skill.name}
                                 </div>
                               </div>

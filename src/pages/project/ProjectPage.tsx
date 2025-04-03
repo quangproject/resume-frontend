@@ -15,9 +15,9 @@ const ProjectPage = () => {
   return (
     <Layout>
       <main>
-        <section className="py-5">
-          <div className="container px-5 mb-5">
-            <div className="text-center mb-5">
+        <section className="py-3 py-md-5">
+          <div className="container my-3 my-md-5">
+            <div className="text-center mb-3 mb-md-5">
               <h1 className="display-5 fw-bolder mb-0">
                 <span className="text-gradient d-inline">Projects</span>
               </h1>

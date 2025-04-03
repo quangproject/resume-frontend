@@ -57,8 +57,8 @@ const ContactPage = () => {
   return (
     <Layout>
       <main>
-        <section className="py-5">
-          <div className="container px-5">
+        <section className="py-3 py-md-5">
+          <div className="container">
             <div className="bg-light rounded-4 py-5 px-4 px-md-5">
               <div className="text-center mb-5">
                 <div className="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 mb-3">
