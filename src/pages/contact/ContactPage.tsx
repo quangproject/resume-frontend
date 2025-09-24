@@ -87,6 +87,7 @@ const ContactPage = () => {
                             as={BootstrapForm.Control}
                             name="fullName"
                             type="text"
+                            placeholder="Full name"
                             isInvalid={!!errors.fullName && touched.fullName}
                           />
                           <ErrorMessage
@@ -105,6 +106,7 @@ const ContactPage = () => {
                             as={BootstrapForm.Control}
                             name="email"
                             type="email"
+                            placeholder="Email address"
                             isInvalid={!!errors.email && touched.email}
                           />
                           <ErrorMessage
@@ -123,6 +125,7 @@ const ContactPage = () => {
                             as={BootstrapForm.Control}
                             name="subject"
                             type="text"
+                            placeholder="Subject"
                             isInvalid={!!errors.subject && touched.subject}
                           />
                           <ErrorMessage
@@ -139,6 +142,7 @@ const ContactPage = () => {
                                 {...field}
                                 as="textarea"
                                 style={{ height: "150px" }}
+                                placeholder="Leave a message here"
                                 isInvalid={!!errors.message && touched.message}
                               />
                             )}
