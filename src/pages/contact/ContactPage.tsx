@@ -2,7 +2,7 @@ import { FloatingLabel, Form as BootstrapForm, Spinner } from "react-bootstrap";
 import UseTop from "../../hooks/UseTop";
 import Layout from "../../layouts";
 import { useState } from "react";
-import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
+import { Formik, Field, Form, ErrorMessage, FormikHelpers, FieldProps } from "formik";
 import * as yup from "yup";
 import swalService from "../../services/SwalService";
 import { SWAL_POSITION } from "../../utils/constant";
@@ -132,23 +132,18 @@ const ContactPage = () => {
                           />
                         </FloatingLabel>
 
-                        <FloatingLabel
-                          controlId="floatingMessage"
-                          label="Message"
-                          className="mb-3"
-                        >
-                          <Field
-                            as={BootstrapForm.Control}
-                            name="message"
-                            type="textarea"
-                            style={{ height: "150px" }} // Custom height for textarea
-                            isInvalid={!!errors.message && touched.message}
-                          />
-                          <ErrorMessage
-                            name="message"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                        <FloatingLabel controlId="floatingMessage" label="Message" className="mb-3">
+                          <Field name="message">
+                            {({ field }: FieldProps) => (
+                              <BootstrapForm.Control
+                                {...field}
+                                as="textarea"
+                                style={{ height: "150px" }}
+                                isInvalid={!!errors.message && touched.message}
+                              />
+                            )}
+                          </Field>
+                          <ErrorMessage name="message" component="div" className="invalid-feedback" />
                         </FloatingLabel>
 
                         <div className="d-grid">
